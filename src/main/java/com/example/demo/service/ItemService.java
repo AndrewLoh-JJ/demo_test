@@ -2,16 +2,14 @@ package com.example.demo.service;
 
 import com.example.demo.dao.ItemDao;
 import com.example.demo.model.Item;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
+@Service
 public class ItemService {
     private final ItemDao itemDao;
 
-    public ItemService(@Qualifier("fakeDao") ItemDao itemDao) {
+    public ItemService(ItemDao itemDao) {
 
         this.itemDao = itemDao;
     }
@@ -26,18 +24,13 @@ public class ItemService {
         return itemDao.selectAllItem();
     }
 
-    public Optional<Item> getItemByID(UUID id) {
+    public int deleteItem(String name) {
 
-        return itemDao.selectItemById(id);
+        return itemDao.deleteItemByName(name);
     }
 
-    public int deleteItem(UUID id) {
+    public int updateItemStatus(Item newItem) {
 
-        return itemDao.deleteItemById(id);
-    }
-
-    public int updateItemStatus(UUID id, Item newItem) {
-
-        return itemDao.updateItemStatusById(id, newItem);
+        return itemDao.updateItemStatus(newItem);
     }
 }

@@ -1,27 +1,38 @@
 package com.example.demo.model;
 
-import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Item {
-    private final UUID id;
     private String name;
     private boolean status;
 
-    public Item(UUID id, String name, boolean status) {
-        this.id = id;
+    public Item(@JsonProperty("name") String name,@JsonProperty("status") boolean status) {
         this.name = name;
         this.status = status;
     }
 
-    public UUID getId() {
-        return id;
+    public Item() {
+
     }
 
     public String getName() {
         return name;
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+
     public boolean isStatus() {
         return false;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

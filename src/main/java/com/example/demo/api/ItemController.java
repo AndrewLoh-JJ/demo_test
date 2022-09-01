@@ -1,14 +1,13 @@
 package com.example.demo.api;
 
 import com.example.demo.model.Item;
-import com.example.demo.model.Person;
 import com.example.demo.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.UUID;
 
+@RequestMapping("api/v1/item")
+@RestController
 public class ItemController {
     private final ItemService itemService;
 
@@ -30,20 +29,14 @@ public class ItemController {
         return itemService.getAllItem();
     }
 
-    @GetMapping(path = "{id}")
-    public Item getItemById(@PathVariable("id") UUID id) {
-        return itemService.getItemByID(id)
-                .orElse(null);
+    @DeleteMapping(path = "{name}")
+    public void deleteItemByName(@PathVariable("name") String name) {
+
+        itemService.deleteItem(name);
     }
 
-    @DeleteMapping(path = "{id}")
-    public void deleteItemById(@PathVariable("id") UUID id) {
-
-        itemService.deleteItem(id);
-    }
-
-    @PutMapping(path = "{id}")
-    public void updateItem(@PathVariable("id") UUID id, @RequestBody Item item) {
-        itemService.updateItemStatus(id, item);
+    @PutMapping(path = "{name}")
+    public void updateItem(@RequestBody Item item) {
+        itemService.updateItemStatus(item);
     }
 }
